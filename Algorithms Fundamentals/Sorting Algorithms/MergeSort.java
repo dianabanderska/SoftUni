@@ -1,62 +1,68 @@
-package SearchingSortingAndGreedyAlgorithms.SortingAlgorithms.AdvancedSorting;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class MergeSort {
-
-    //best, avg and worst case: O(n*log(n))
-
     public static void main(String[] args) {
-        int[] arr = {5, 4, 3, 2, 1};
+        Scanner scanner = new Scanner(System.in);
 
-        sort(arr);
+        int[] arr = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
-        StringBuilder builder = new StringBuilder();
+        mergeSort(arr);
 
-        for (int num : arr) {
-            builder.append(num).append(" ");
-        }
-        System.out.println(builder);
+        Arrays.stream(arr).forEach(e -> System.out.print(e + " "));
     }
 
-    private static void sort(int[] arr) {
-        mergeSort(arr, 0, arr.length - 1);
-    }
-
-    private static void mergeSort(int[] arr, int begin, int end) {
-        if (begin >= end) {
+    private static void mergeSort(int[] arr) {
+        int length = arr.length;
+        if (length < 2) {
             return;
         }
 
-        int mid = (begin + end) / 2;
+        int midIndex = length / 2;
+        int[] leftHalf = new int[midIndex];
+        int[] rightHalf = new int[length - midIndex];
 
-        mergeSort(arr, begin, mid);
-        mergeSort(arr, mid + 1, end);
+        for (int i = 0; i < leftHalf.length; i++) {
+            leftHalf[i] = arr[i];
+        }
+        for (int i = midIndex; i < arr.length; i++) {
+            rightHalf[i - midIndex] = arr[i];
+        }
+        mergeSort(leftHalf);
+        mergeSort(rightHalf);
 
-        merge(arr, begin, mid, end);
+        merge(arr, leftHalf, rightHalf);
     }
 
-    private static void merge(int[] arr, int begin, int mid, int end) {
-        if (mid < 0 || mid >= arr.length || arr[mid] < arr[mid + 1]) {
-            return;
-        }
+    private static void merge(int[] arr, int[] leftHalf, int[] rightHalf) {
+        int leftSize = leftHalf.length;
+        int rightSize = rightHalf.length;
 
-        int left = begin;
-        int right = mid + 1;
-        int[] helper = new int[arr.length];
+        int i = 0;
+        int j = 0;
+        int k = 0;
 
-        for (int i = begin; i <= end; i++) {
-            helper[i] = arr[i];
-        }
-
-        for (int i = begin; i <= end; i++) {
-            if (left > mid) {
-                arr[i] = helper[right++];
-            } else if (right > end) {
-                arr[i] = helper[left++];
-            } else if (helper[left] < helper[right]) {
-                arr[i] = helper[left++];
+        while (i < leftSize && j < rightSize) {
+            if (leftHalf[i] <= rightHalf[j]) {
+                arr[k] = leftHalf[i];
+                i++;
             } else {
-                arr[i] = helper[right++];
+                arr[k] = rightHalf[j];
+                j++;
             }
+            k++;
+        }
+        while (i < leftSize) {
+            arr[k] = leftHalf[i];
+            k++;
+            i++;
+        }
+        while (j < rightSize) {
+            arr[k] = rightHalf[j];
+            k++;
+            j++;
         }
     }
 }
