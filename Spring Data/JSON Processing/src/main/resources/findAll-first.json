@@ -1,0 +1,44 @@
+[
+  {
+    "subordinates": [
+      {
+        "salary": 2000.00,
+        "firstName": "Ani",
+        "lastName": "Ilieva"
+      },
+      {
+        "salary": 2000.00,
+        "firstName": "Ivan",
+        "lastName": "Ivanov"
+      }
+    ],
+    "firstName": "Maria",
+    "lastName": "Ivanova"
+  },
+  {
+    "subordinates": [],
+    "firstName": "Ivan",
+    "lastName": "Ivanov"
+  },
+  {
+    "subordinates": [
+      {
+        "salary": 1500.00,
+        "firstName": "Ivana",
+        "lastName": "Petrova"
+      }
+    ],
+    "firstName": "Ani",
+    "lastName": "Ilieva"
+  },
+  {
+    "subordinates": [],
+    "firstName": "Ivana",
+    "lastName": "Petrova"
+  },
+  {
+    "subordinates": [],
+    "firstName": "New",
+    "lastName": "Employee from file"
+  }
+]
